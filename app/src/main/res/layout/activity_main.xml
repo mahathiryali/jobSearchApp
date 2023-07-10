@@ -4,16 +4,59 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/homebackground"
     tools:context=".MainActivity">
 
     <Button
-        android:id="@+id/supabutton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="136dp"
-        android:layout_marginTop="288dp"
-        android:text="I'm a button"
+        android:id="@+id/resources"
+        android:layout_width="170dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="117dp"
+        android:layout_marginTop="432dp"
+        android:backgroundTint="#F4D81F"
+        android:text="Resources"
+        android:textColor="@color/black"
+        android:textSize="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/jobSearch"
+        android:layout_width="170dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="117dp"
+        android:layout_marginTop="200dp"
+        android:backgroundTint="#F4D81F"
+        android:text="Job Search"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/settings"
+        android:layout_width="170dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="117dp"
+        android:layout_marginTop="316dp"
+        android:backgroundTint="#F4D81F"
+        android:text="Settings"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Job Search Application"
+        android:textSize="32dp"
+        android:textColor="#FFE285"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.022" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
