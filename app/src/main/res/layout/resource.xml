@@ -28,9 +28,14 @@
         android:layout_marginStart="60dp"
         android:layout_marginTop="54dp"
         android:layout_marginEnd="176dp"
+        android:backgroundTint="#F4D81F"
+        android:text="Home"
+        android:textColor="@color/black"
+        android:textSize="14dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/resourcestitle"
-        app:srcCompat="@drawable/foldericon" />
+        app:srcCompat="@drawable/foldericon"
+        />
 
     <ImageView
         android:id="@+id/preparation"

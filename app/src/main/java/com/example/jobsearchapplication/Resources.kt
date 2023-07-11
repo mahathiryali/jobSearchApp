@@ -2,6 +2,7 @@ package com.example.jobsearchapplication
 import android.content.Intent
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
+import android.view.View
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.Button
@@ -15,25 +16,27 @@ class Resources : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.resource)
 
-        val homeBtn = findViewById(R.id.home) as Button
+        val homeBtn = findViewById<Button>(R.id.home)
         homeBtn.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
 
         val resumesBtn = findViewById<ImageView> (R.id.resumes)
-        resumesBtn.setOnClickListener {
-            val intent2 = Intent(resumesBtn.context, Resumes::class.java)
-            resumesBtn.context.startActivity(intent2)
+        resumesBtn.setOnClickListener  {
+            val intent = Intent(this@Resources, Resumes::class.java)
+            startActivity(intent)
+//            Toast.makeText(this, "Button 1 clicked", Toast.LENGTH_SHORT).show()
         }
 
-        val interviewTipsBtn = findViewById(R.id.preparation) as ImageView
+        val interviewTipsBtn = findViewById<ImageView>(R.id.preparation)
         interviewTipsBtn.setOnClickListener {
             val intent3 = Intent(this, Preparation::class.java)
             startActivity(intent3)
+//            Toast.makeText(this, "Button 2 clicked", Toast.LENGTH_SHORT).show()
         }
 
-        val FAQBtn = findViewById(R.id.faq) as ImageView
+        val FAQBtn = findViewById<ImageView>(R.id.faq)
         FAQBtn.setOnClickListener {
             val intent4 = Intent(this, FAQ::class.java)
             startActivity(intent4)
