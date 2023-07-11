@@ -13,7 +13,6 @@
         android:layout_height="0dp"
         android:layout_marginStart="296dp"
         android:layout_marginTop="16dp"
-        android:layout_marginBottom="130dp"
         android:backgroundTint="#F4D81F"
         android:text="Home"
         android:textColor="@color/black"
@@ -21,8 +20,42 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageView
+        android:id="@+id/resumes"
+        android:clickable="true"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="54dp"
+        android:layout_marginEnd="176dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/resourcestitle"
+        app:srcCompat="@drawable/foldericon" />
+
+    <ImageView
+        android:id="@+id/preparation"
+        app:srcCompat="@drawable/foldericon"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="249dp"
+        android:layout_marginTop="54dp"
+        android:layout_marginEnd="176dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/resourcestitle"/>
+
+    <ImageView
+        android:id="@+id/faq"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="154.5dp"
+        android:layout_marginTop="230dp"
+        android:layout_marginEnd="382dp"
+        app:srcCompat="@drawable/foldericon"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/resourcestitle"/>
+
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/resourcestitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -35,5 +68,47 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.107" />
+
+    <TextView
+        android:id="@+id/resumestext"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="280dp"
+        android:background="#CC9C00"
+        android:gravity="center"
+        android:text="Resumes"
+        android:textColor="@color/black"
+        android:textSize="18dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/preparationtext"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="249dp"
+        android:layout_marginTop="280dp"
+        android:background="#CC9C00"
+        android:gravity="center"
+        android:text="Preparation"
+        android:textColor="@color/black"
+        android:textSize="18dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/faqtext"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="154.5dp"
+        android:layout_marginTop="455dp"
+        android:background="#CC9C00"
+        android:gravity="center"
+        android:text="FAQ"
+        android:textColor="@color/black"
+        android:textSize="18dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
