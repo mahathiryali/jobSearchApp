@@ -1,8 +1,6 @@
 package com.example.jobsearchapplication
 import android.content.Intent
 import android.os.Bundle
-import android.webkit.WebView
-import android.webkit.WebViewClient
 import android.widget.Button
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
@@ -35,6 +33,5 @@ class Resumes : AppCompatActivity() {
             val intent = Intent(this, Template2::class.java)
             startActivity(intent)
         }
-
     }
 }
