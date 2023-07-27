@@ -19,6 +19,12 @@ class FAQ : AppCompatActivity() {
             startActivity(intent)
         }
 
+        val backBtn = findViewById<Button>(R.id.backBtn)
+        backBtn.setOnClickListener {
+            val intent = Intent(this, Resources::class.java)
+            startActivity(intent)
+        }
+
         val q1Btn = findViewById<Button>(R.id.question1)
         val q1AnswerBtn = findViewById<TextView>(R.id.question1Answer)
         q1AnswerBtn.visibility = View.INVISIBLE
