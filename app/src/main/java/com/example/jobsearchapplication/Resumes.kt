@@ -16,7 +16,7 @@ class Resumes : AppCompatActivity() {
             startActivity(intent)
         }
 
-        val resourcesBtn = findViewById<Button>(R.id.resources)
+        val resourcesBtn = findViewById<Button>(R.id.back)
         resourcesBtn.setOnClickListener {
             val intent = Intent(this, Resources::class.java)
             startActivity(intent)

@@ -1,15 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbarSize="25sp"
+    tools:context=".MainActivity">
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/prepbackground"
     xmlns:tools="http://schemas.android.com/tools">
 
     <TextView
         android:id="@+id/preparationTitle"
         android:layout_width="409dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="96dp"
+        android:layout_marginTop="66dp"
         android:gravity="center"
         android:text="Preparation for Interviews"
         android:textColor="#E0AC00"
@@ -45,39 +52,40 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/card_back"
+        android:id="@+id/prep1Answer"
         android:layout_width="175dp"
         android:layout_height="175dp"
-        android:layout_marginTop="145dp"
+        android:layout_marginTop="115dp"
         android:layout_marginLeft="16dp"
-        android:background="#BF3030"
+        android:background="#0096C7"
         android:gravity="center"
         android:text="Give a little bit of background information, elucidate your strengths, and accentuate why you are a good fit for this position."
         android:textAlignment="center"
-        android:textSize="18sp"
+        android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/card_front"
+        android:id="@+id/prep1Question"
         android:layout_width="175dp"
         android:layout_height="175dp"
-        android:layout_marginTop="145dp"
+        android:layout_marginTop="115dp"
         android:layout_marginLeft="16dp"
-        android:background="#326314"
+        android:background="#0077B6"
         android:gravity="center"
         android:text="Tell me about yourself."
         android:textAlignment="center"
-        android:textSize="22sp"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/flip_btn"
+        android:id="@+id/prep1Btn"
         android:layout_width="175dp"
         android:layout_height="wrap_content"
         android:text="Show Answer"
-        android:layout_marginTop="313dp"
+        android:backgroundTint="#0096C7"
+        android:layout_marginTop="283dp"
         android:layout_marginLeft="16dp"
         tools:layout_editor_absoluteX="142dp"
         tools:layout_editor_absoluteY="559dp"
@@ -88,13 +96,13 @@
         android:id="@+id/prep2Answer"
         android:layout_width="175dp"
         android:layout_height="175dp"
-        android:layout_marginTop="145dp"
+        android:layout_marginTop="115dp"
         android:layout_marginLeft="215dp"
-        android:background="#BF3030"
+        android:background="#0096C7"
         android:gravity="center"
-        android:text="Give a little bit of background information, elucidate your strengths, and accentuate why you are a good fit for this position."
+        android:text="Highlight the difficulties, what you got out of it, and emphasize the importance of collaboration."
         android:textAlignment="center"
-        android:textSize="18sp"
+        android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -102,13 +110,13 @@
         android:id="@+id/prep2Question"
         android:layout_width="175dp"
         android:layout_height="175dp"
-        android:layout_marginTop="145dp"
+        android:layout_marginTop="115dp"
         android:layout_marginLeft="215dp"
-        android:background="#326314"
+        android:background="#0077B6"
         android:gravity="center"
-        android:text="Tell me about yourself."
+        android:text="Tell me about a time when you had to work closely with someone whose personality was very different from yours."
         android:textAlignment="center"
-        android:textSize="22sp"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -117,7 +125,172 @@
         android:layout_width="175dp"
         android:layout_height="wrap_content"
         android:text="Show Answer"
-        android:layout_marginTop="313dp"
+        android:backgroundTint="#0096C7"
+        android:layout_marginTop="283dp"
+        android:layout_marginLeft="215dp"
+        tools:layout_editor_absoluteX="142dp"
+        tools:layout_editor_absoluteY="559dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/prep3Answer"
+        android:layout_width="175dp"
+        android:layout_height="175dp"
+        android:layout_marginTop="345dp"
+        android:layout_marginLeft="16dp"
+        android:background="#0096C7"
+        android:gravity="center"
+        android:text="Do your research ahead of time and make sure to mention how you resonate with the company's values."
+        android:textAlignment="center"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/prep3Question"
+        android:layout_width="175dp"
+        android:layout_height="175dp"
+        android:layout_marginTop="345dp"
+        android:layout_marginLeft="16dp"
+        android:background="#0077B6"
+        android:gravity="center"
+        android:text="Why are you interested in this company?"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/prep3Btn"
+        android:layout_width="175dp"
+        android:layout_height="wrap_content"
+        android:text="Show Answer"
+        android:backgroundTint="#0096C7"
+        android:layout_marginTop="513dp"
+        android:layout_marginLeft="16dp"
+        tools:layout_editor_absoluteX="142dp"
+        tools:layout_editor_absoluteY="559dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/prep4Answer"
+        android:layout_width="175dp"
+        android:layout_height="175dp"
+        android:layout_marginTop="345dp"
+        android:layout_marginLeft="215dp"
+        android:background="#0096C7"
+        android:gravity="center"
+        android:text="Be very specific when discussing your greatest strength and most glaring weakness in a manner where you are not painting yourself in a bad light."
+        android:textAlignment="center"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/prep4Question"
+        android:layout_width="175dp"
+        android:layout_height="175dp"
+        android:layout_marginTop="345dp"
+        android:layout_marginLeft="215dp"
+        android:background="#0077B6"
+        android:gravity="center"
+        android:text="What is your greatest strength and most glaring weakness?"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/prep4Btn"
+        android:layout_width="175dp"
+        android:layout_height="wrap_content"
+        android:text="Show Answer"
+        android:backgroundTint="#0096C7"
+        android:layout_marginTop="513dp"
+        android:layout_marginLeft="215dp"
+        tools:layout_editor_absoluteX="142dp"
+        tools:layout_editor_absoluteY="559dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/prep5Answer"
+        android:layout_width="175dp"
+        android:layout_height="175dp"
+        android:layout_marginTop="575dp"
+        android:layout_marginLeft="16dp"
+        android:background="#0096C7"
+        android:gravity="center"
+        android:text="Highlight how you overcame the adversity in lieu of what the problems were, discuss in detail how you overcame said adversity, and accentuate what you learned from the experience."
+        android:textAlignment="center"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/prep5Question"
+        android:layout_width="175dp"
+        android:layout_height="175dp"
+        android:layout_marginTop="575dp"
+        android:layout_marginLeft="16dp"
+        android:background="#0077B6"
+        android:gravity="center"
+        android:text="Tell me about a time where you overcame adversity and how so?"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/prep5Btn"
+        android:layout_width="175dp"
+        android:layout_height="wrap_content"
+        android:text="Show Answer"
+        android:backgroundTint="#0096C7"
+        android:layout_marginTop="725dp"
+        android:layout_marginLeft="16dp"
+        tools:layout_editor_absoluteX="142dp"
+        tools:layout_editor_absoluteY="559dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/prep6Answer"
+        android:layout_width="175dp"
+        android:layout_height="175dp"
+        android:layout_marginTop="575dp"
+        android:layout_marginLeft="215dp"
+        android:background="#0096C7"
+        android:gravity="center"
+        android:text="Be honest and true to who you are - chances are they can read you."
+        android:textAlignment="center"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/prep6Question"
+        android:layout_width="175dp"
+        android:layout_height="175dp"
+        android:layout_marginTop="575dp"
+        android:layout_marginLeft="215dp"
+        android:background="#0077B6"
+        android:gravity="center"
+        android:text="Describe your work ethic"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/prep6Btn"
+        android:layout_width="175dp"
+        android:layout_height="wrap_content"
+        android:text="Show Answer"
+        android:backgroundTint="#0096C7"
+        android:layout_marginTop="725dp"
         android:layout_marginLeft="215dp"
         tools:layout_editor_absoluteX="142dp"
         tools:layout_editor_absoluteY="559dp"
@@ -125,3 +298,4 @@
         app:layout_constraintTop_toTopOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

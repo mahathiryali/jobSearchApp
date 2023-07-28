@@ -11,8 +11,12 @@ import android.widget.TextView
 class Preparation : AppCompatActivity() {
     lateinit var front_anim:AnimatorSet
     lateinit var back_anim: AnimatorSet
-    var isFront = true
+    var prep1Front = true
     var prep2Front = true
+    var prep3Front = true
+    var prep4Front = true
+    var prep5Front = true
+    var prep6Front = true
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.preparation)
@@ -30,33 +34,31 @@ class Preparation : AppCompatActivity() {
         }
 
         var scale = applicationContext.resources.displayMetrics.density
-        val front = findViewById<TextView>(R.id.card_front) as TextView
-        val back =findViewById<TextView>(R.id.card_back) as TextView
-        val flip = findViewById<Button>(R.id.flip_btn) as Button
+        val prep1Q = findViewById<TextView>(R.id.prep1Question) as TextView
+        val prep1A =findViewById<TextView>(R.id.prep1Answer) as TextView
+        val prep1Btn = findViewById<Button>(R.id.prep1Btn) as Button
 
-        front.cameraDistance = 8000 * scale
-        back.cameraDistance = 8000 * scale
+        prep1Q.cameraDistance = 8000 * scale
+        prep1A.cameraDistance = 8000 * scale
 
         front_anim = AnimatorInflater.loadAnimator(applicationContext, R.animator.front_animator) as AnimatorSet
         back_anim = AnimatorInflater.loadAnimator(applicationContext, R.animator.back_animator) as AnimatorSet
 
-        flip.setOnClickListener {
-            if (isFront) {
-                flip.setText("Show Question")
-                front_anim.setTarget(front)
-                back_anim.setTarget(back)
+        prep1Btn.setOnClickListener {
+            if (prep1Front) {
+                prep1Btn.setText("Show Question")
+                front_anim.setTarget(prep1Q)
+                back_anim.setTarget(prep1A)
                 front_anim.start()
                 back_anim.start()
-                isFront = false
-
+                prep1Front = false
             } else {
-                flip.setText("Show Answer")
-                front_anim.setTarget(back)
-                back_anim.setTarget(front)
+                prep1Btn.setText("Show Answer")
+                front_anim.setTarget(prep1A)
+                back_anim.setTarget(prep1Q)
                 back_anim.start()
                 front_anim.start()
-                isFront = true
-
+                prep1Front = true
             }
         }
 
@@ -81,6 +83,94 @@ class Preparation : AppCompatActivity() {
                 front_anim.start()
                 prep2Front = true
 
+            }
+        }
+
+        val prep3Q = findViewById<TextView>(R.id.prep3Question) as TextView
+        val prep3A =findViewById<TextView>(R.id.prep3Answer) as TextView
+        val prep3Btn = findViewById<Button>(R.id.prep3Btn) as Button
+
+        prep3Btn.setOnClickListener {
+            if (prep3Front) {
+                prep3Btn.setText("Show Question")
+                front_anim.setTarget(prep3Q)
+                back_anim.setTarget(prep3A)
+                front_anim.start()
+                back_anim.start()
+                prep3Front = false
+            } else {
+                prep3Btn.setText("Show Answer")
+                front_anim.setTarget(prep3A)
+                back_anim.setTarget(prep3Q)
+                back_anim.start()
+                front_anim.start()
+                prep3Front = true
+            }
+        }
+
+        val prep4Q = findViewById<TextView>(R.id.prep4Question) as TextView
+        val prep4A =findViewById<TextView>(R.id.prep4Answer) as TextView
+        val prep4Btn = findViewById<Button>(R.id.prep4Btn) as Button
+
+        prep4Btn.setOnClickListener {
+            if (prep4Front) {
+                prep4Btn.setText("Show Question")
+                front_anim.setTarget(prep4Q)
+                back_anim.setTarget(prep4A)
+                front_anim.start()
+                back_anim.start()
+                prep4Front = false
+            } else {
+                prep4Btn.setText("Show Answer")
+                front_anim.setTarget(prep4A)
+                back_anim.setTarget(prep4Q)
+                back_anim.start()
+                front_anim.start()
+                prep4Front = true
+            }
+        }
+
+        val prep5Q = findViewById<TextView>(R.id.prep5Question) as TextView
+        val prep5A =findViewById<TextView>(R.id.prep5Answer) as TextView
+        val prep5Btn = findViewById<Button>(R.id.prep5Btn) as Button
+
+        prep5Btn.setOnClickListener {
+            if (prep5Front) {
+                prep5Btn.setText("Show Question")
+                front_anim.setTarget(prep5Q)
+                back_anim.setTarget(prep5A)
+                front_anim.start()
+                back_anim.start()
+                prep5Front = false
+            } else {
+                prep5Btn.setText("Show Answer")
+                front_anim.setTarget(prep5A)
+                back_anim.setTarget(prep5Q)
+                back_anim.start()
+                front_anim.start()
+                prep5Front = true
+            }
+        }
+
+        val prep6Q = findViewById<TextView>(R.id.prep6Question) as TextView
+        val prep6A =findViewById<TextView>(R.id.prep6Answer) as TextView
+        val prep6Btn = findViewById<Button>(R.id.prep6Btn) as Button
+
+        prep6Btn.setOnClickListener {
+            if (prep6Front) {
+                prep6Btn.setText("Show Question")
+                front_anim.setTarget(prep6Q)
+                back_anim.setTarget(prep6A)
+                front_anim.start()
+                back_anim.start()
+                prep6Front = false
+            } else {
+                prep6Btn.setText("Show Answer")
+                front_anim.setTarget(prep6A)
+                back_anim.setTarget(prep6Q)
+                back_anim.start()
+                front_anim.start()
+                prep6Front = true
             }
         }
     }

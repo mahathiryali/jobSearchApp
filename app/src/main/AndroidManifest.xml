@@ -33,6 +33,7 @@
         <activity android:name=".FAQ"></activity>
         <activity android:name=".Template1"></activity>
         <activity android:name=".Template2"></activity>
+        <activity android:name=".JobSearch"></activity>
     </application>
 
 </manifest>
