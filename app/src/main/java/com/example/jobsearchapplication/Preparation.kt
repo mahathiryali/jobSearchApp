@@ -37,10 +37,8 @@ class Preparation : AppCompatActivity() {
         val prep1Q = findViewById<TextView>(R.id.prep1Question) as TextView
         val prep1A =findViewById<TextView>(R.id.prep1Answer) as TextView
         val prep1Btn = findViewById<Button>(R.id.prep1Btn) as Button
-
         prep1Q.cameraDistance = 8000 * scale
         prep1A.cameraDistance = 8000 * scale
-
         front_anim = AnimatorInflater.loadAnimator(applicationContext, R.animator.front_animator) as AnimatorSet
         back_anim = AnimatorInflater.loadAnimator(applicationContext, R.animator.back_animator) as AnimatorSet
 
@@ -74,7 +72,6 @@ class Preparation : AppCompatActivity() {
                 front_anim.start()
                 back_anim.start()
                 prep2Front = false
-
             } else {
                 prep2Btn.setText("Show Answer")
                 front_anim.setTarget(prep2A)
@@ -82,7 +79,6 @@ class Preparation : AppCompatActivity() {
                 back_anim.start()
                 front_anim.start()
                 prep2Front = true
-
             }
         }
 
