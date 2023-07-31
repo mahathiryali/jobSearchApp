@@ -37,5 +37,126 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="370dp"
+        android:layout_height="200dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="114dp"
+        android:orientation="vertical"
+        android:background="@drawable/border"
+        android:padding="5dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/filter"
+            android:layout_width="409dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:layout_marginLeft="6dp"
+            android:gravity="left"
+            android:text="Filter"
+            android:textColor="#E0AC00"
+            android:textSize="25dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/careerField"
+            android:layout_width="172.5dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="6dp"
+            android:layout_marginTop="8dp"
+            android:background="#495057"
+            android:hint="Enter career field"
+            android:inputType="text"
+            android:textColorHint="@color/white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/location"
+            android:layout_width="172.5dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="184dp"
+            android:layout_marginTop="-24dp"
+            android:background="#495057"
+            android:hint="Enter location"
+            android:inputType="text"
+            android:textColorHint="@color/white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/seekBarText"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="19dp"
+            android:layout_marginLeft="3dp"
+            android:gravity="center"
+            android:text="Radius"
+            android:textColor="#E0AC00"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <SeekBar
+            android:id="@+id/seekBar"
+            android:layout_width="293dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-19dp"
+            android:layout_marginLeft="63dp"
+            android:background="#495057"
+            android:max="100"
+            android:min="0"
+            android:progress="25"
+            android:progressTint="@color/white"
+            android:thumbTint="#031b35"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="parent" />
+
+        <TextView
+            android:id="@+id/seekBarProgress"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="19dp"
+            android:layout_marginLeft="3dp"
+            android:gravity="center"
+            android:text=""
+            android:textColor="#E0AC00"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/enter"
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="141dp"
+            android:backgroundTint="#F4D81F"
+            android:text="Enter"
+            android:textColor="@color/black"
+            android:textSize="14dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/radiusText"
+        android:layout_width="410dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="330dp"
+        android:gravity="center"
+        android:text="Finding software engineering jobs in a 25 mile radius of Atlanta"
+        android:textColor="#E0AC00"
+        android:textSize="14dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
 <!--</ScrollView>-->
