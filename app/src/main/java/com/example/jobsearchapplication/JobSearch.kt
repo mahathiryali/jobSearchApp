@@ -22,16 +22,16 @@ class JobSearch : AppCompatActivity() {
 
         val seek = findViewById<SeekBar>(R.id.seekBar)
         val seekBarProgress = findViewById<TextView>(R.id.seekBarProgress)
+        val jobText = findViewById<TextView>(R.id.radiusText)
+        seekBarProgress.text = "Default Radius: ${seek.progress}" + " miles"
         seek?.setOnSeekBarChangeListener(object :
             SeekBar.OnSeekBarChangeListener {
-            override fun onProgressChanged(seek: SeekBar,
-                                           progress: Int, fromUser: Boolean) {
+            override fun onProgressChanged(seek: SeekBar, progress: Int, fromUser: Boolean) {
+                seekBarProgress.text = "Current Radius: $progress" + " miles"
+                jobText.text = "Finding software engineering jobs in a $progress" + " mile radius of Atlanta"
             }
 
             override fun onStartTrackingTouch(p0: SeekBar?) {
-//                Toast.makeText(this@JobSearch,
-//                    "Current Radius: " + seek.progress,
-//                    Toast.LENGTH_SHORT).show()
             }
 
             override fun onStopTrackingTouch(p0: SeekBar?) {
