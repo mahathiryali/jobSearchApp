@@ -52,6 +52,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Job Search Application"
+        android:textStyle="bold"
         android:textSize="32dp"
         android:textColor="#FFE285"
         app:layout_constraintBottom_toBottomOf="parent"
