@@ -13,11 +13,11 @@ class Resources : AppCompatActivity() {
 
         val homeBtn = findViewById<Button>(R.id.home)
         homeBtn.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, Home::class.java)
             startActivity(intent)
         }
 
-        val resumesBtn = findViewById<ImageView> (R.id.resumes)
+        val resumesBtn = findViewById<ImageView>(R.id.resumes)
         resumesBtn.setOnClickListener  {
             val intent = Intent(this@Resources, Resumes::class.java)
             startActivity(intent)
@@ -29,8 +29,8 @@ class Resources : AppCompatActivity() {
             startActivity(intent3)
         }
 
-        val FAQBtn = findViewById<ImageView>(R.id.faq)
-        FAQBtn.setOnClickListener {
+        val faqBtn = findViewById<ImageView>(R.id.faq)
+        faqBtn.setOnClickListener {
             val intent4 = Intent(this, FAQ::class.java)
             startActivity(intent4)
         }
