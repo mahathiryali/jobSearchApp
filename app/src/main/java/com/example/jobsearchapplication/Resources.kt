@@ -25,14 +25,14 @@ class Resources : AppCompatActivity() {
 
         val interviewTipsBtn = findViewById<ImageView>(R.id.preparation)
         interviewTipsBtn.setOnClickListener {
-            val intent3 = Intent(this, Preparation::class.java)
-            startActivity(intent3)
+            val intent = Intent(this, Preparation::class.java)
+            startActivity(intent)
         }
 
         val faqBtn = findViewById<ImageView>(R.id.faq)
         faqBtn.setOnClickListener {
-            val intent4 = Intent(this, FAQ::class.java)
-            startActivity(intent4)
+            val intent = Intent(this, FAQ::class.java)
+            startActivity(intent)
         }
     }
 }
