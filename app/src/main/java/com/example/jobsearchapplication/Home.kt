@@ -21,5 +21,11 @@ class Home : AppCompatActivity() {
             val intent = Intent(this, JobSearch::class.java)
             startActivity(intent)
         }
+
+        val settingsBtn = findViewById<Button>(R.id.settings)
+        settingsBtn.setOnClickListener {
+            val intent = Intent(this, Settings::class.java)
+            startActivity(intent)
+        }
     }
 }
