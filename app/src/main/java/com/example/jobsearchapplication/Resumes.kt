@@ -13,7 +13,7 @@ class Resumes : AppCompatActivity() {
 
         val homeBtn = findViewById<Button>(R.id.home)
         homeBtn.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, Home::class.java)
             startActivity(intent)
         }
 

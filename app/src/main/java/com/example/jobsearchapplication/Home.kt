@@ -5,20 +5,26 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 
-class MainActivity : AppCompatActivity() {
+class Home : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.home)
 
-        val resourcesBtn = findViewById(R.id.resources) as Button
+        val resourcesBtn = findViewById<Button>(R.id.resources)
         resourcesBtn.setOnClickListener {
             val intent = Intent(this, Resources::class.java)
             startActivity(intent)
         }
 
-        val jobSearchBtn = findViewById(R.id.jobSearch) as Button
+        val jobSearchBtn = findViewById<Button>(R.id.jobSearch)
         jobSearchBtn.setOnClickListener {
             val intent = Intent(this, JobSearch::class.java)
+            startActivity(intent)
+        }
+
+        val settingsBtn = findViewById<Button>(R.id.settings)
+        settingsBtn.setOnClickListener {
+            val intent = Intent(this, Settings::class.java)
             startActivity(intent)
         }
     }
