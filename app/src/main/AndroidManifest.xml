@@ -35,6 +35,7 @@
         <activity android:name=".Template2"></activity>
         <activity android:name=".JobSearch"></activity>
         <activity android:name=".Settings"></activity>
+        <activity android:name=".CreateAccount"></activity>
     </application>
 
 </manifest>
