@@ -2,7 +2,11 @@ package com.example.jobsearchapplication
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.*
+import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
+import android.widget.SeekBar
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -31,7 +35,7 @@ class JobSearch : AppCompatActivity() {
         val seekBarProgress = findViewById<TextView>(R.id.seekBarProgress)
         val jobText = findViewById<TextView>(R.id.radiusText)
 
-        seekBarProgress.text = "Current Radius: ${seek.progress} miles"
+        seekBarProgress.text = "Default Radius: ${seek.progress} miles"
         seek.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seek: SeekBar, progress: Int, fromUser: Boolean) {
                 seekBarProgress.text = "Current Radius: $progress miles"
@@ -77,7 +81,9 @@ class JobSearch : AppCompatActivity() {
 
             val responseCode = connection.responseCode
             if (responseCode == HttpURLConnection.HTTP_OK) {
-                val inputStream = connection.inputStream.bufferedReader().use { it.readText() }
+                val inputStream = connection.inputStream.bufferedReader().use {
+                    it.readText()
+                }
                 val jobResult = Gson().fromJson(inputStream, JobResult::class.java)
                 runOnUiThread {
                     jobAdapter.updateJobs(jobResult.results)
