@@ -57,6 +57,9 @@ class CreateAccount : AppCompatActivity() {
             TextUtils.isEmpty(username) || TextUtils.isEmpty(email) || TextUtils.isEmpty(firstName) || TextUtils.isEmpty(lastName) || TextUtils.isEmpty(password) -> {
                 showToast("Inputting text in all fields is required")
             }
+            username.contains(" ") || password.contains(" ") || email.contains(" ")-> {
+                showToast("Ensure there are no spaces in the username, email, and password fields.")
+            }
             username.length < 8 -> {
                 showToast("Username must be at least 8 characters long")
             }
