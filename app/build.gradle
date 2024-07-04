@@ -14,8 +14,14 @@ android {
         targetSdk 34
         versionCode 1
         versionName "1.0"
-
+        buildConfigField "String", "API_URL", "\"${System.getenv("API_URL")}\""
+        buildConfigField "String", "API_ID", "\"${System.getenv("API_ID")}\""
+        buildConfigField "String", "API_KEY", "\"${System.getenv("API_KEY")}\""
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildFeatures {
+        buildConfig = true
     }
 
     buildTypes {

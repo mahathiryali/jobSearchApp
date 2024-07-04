@@ -9,6 +9,8 @@ import android.text.TextUtils
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class CreateAccount : AppCompatActivity() {
     private lateinit var usernameEdit: EditText
@@ -17,6 +19,9 @@ class CreateAccount : AppCompatActivity() {
     private lateinit var lastNameEdit: EditText
     private lateinit var passwordEdit: EditText
     private lateinit var createAccountButton: Button
+
+    private lateinit var auth: FirebaseAuth
+    private lateinit var firestore: FirebaseFirestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,6 +33,8 @@ class CreateAccount : AppCompatActivity() {
         lastNameEdit = findViewById(R.id.lastNameEdit)
         passwordEdit = findViewById(R.id.passwordEdit)
         createAccountButton = findViewById(R.id.createAccountButton)
+        auth = FirebaseAuth.getInstance()
+        firestore = FirebaseFirestore.getInstance()
 
         createAccountButton.setOnClickListener {
             validateInputs()
@@ -57,7 +64,7 @@ class CreateAccount : AppCompatActivity() {
             TextUtils.isEmpty(username) || TextUtils.isEmpty(email) || TextUtils.isEmpty(firstName) || TextUtils.isEmpty(lastName) || TextUtils.isEmpty(password) -> {
                 showToast("Inputting text in all fields is required")
             }
-            username.contains(" ") || password.contains(" ") || email.contains(" ")-> {
+            username.contains(" ") || password.contains(" ") || email.contains(" ") -> {
                 showToast("Ensure there are no spaces in the username, email, and password fields.")
             }
             username.length < 8 -> {
@@ -70,16 +77,46 @@ class CreateAccount : AppCompatActivity() {
                 showToast("Password must be at least 8 characters long")
             }
             else -> {
-                showToast("Account created successfully")
-                Handler(Looper.getMainLooper()).postDelayed({
-                    val intent = Intent(this, Settings::class.java)
-                    startActivity(intent)
-                }, 1500)
+                createUserAccount(username, email, firstName, lastName, password)
             }
         }
     }
 
+    private fun createUserAccount(username: String, email: String, firstName: String, lastName: String, password: String) {
+        auth.createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    val user = auth.currentUser
+                    val userId = user?.uid
+                    val userMap = hashMapOf(
+                        "username" to username,
+                        "email" to email,
+                        "firstName" to firstName,
+                        "lastName" to lastName
+                    )
+
+                    userId?.let {
+                        firestore.collection("users").document(it).set(userMap)
+                            .addOnSuccessListener {
+                                showToast("Account created successfully!")
+                                Handler(Looper.getMainLooper()).postDelayed({
+                                    val intent = Intent(this, Settings::class.java)
+                                    startActivity(intent)
+                                }, 1500)
+                            }
+                            .addOnFailureListener { e ->
+                                showToast("Failed to store user data: ${e.message}")
+                            }
+                    }
+                } else {
+                    showToast("Account creation failed: ${task.exception?.message}")
+                }
+            }
+    }
+
     private fun showToast(message: String) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+        runOnUiThread {
+            Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+        }
     }
 }
