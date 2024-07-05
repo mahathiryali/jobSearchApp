@@ -66,31 +66,43 @@ class JobSearch : AppCompatActivity() {
     }
 
     private fun fetchJobs(keyword: String, location: String, radius: Int) {
-        val apiEndpoint = "https://api.adzuna.com/v1/api/jobs/us/search/1"
-        val apiId = System.getenv("API_ID")
-        val apiKey = System.getenv("API_KEY")
-        if (apiId.isNullOrEmpty() || apiKey.isNullOrEmpty()) {
-            showToast("API_ID: $apiId, API_KEY: $apiKey")
+        val apiUrl = BuildConfig.API_URL
+        val apiId = BuildConfig.API_ID
+        val apiKey = BuildConfig.API_KEY
+        if (apiUrl.isNullOrEmpty() || apiId.isNullOrEmpty() || apiKey.isNullOrEmpty()) {
+            showToast("Please enter an API URL, ID, and KEY.")
+            return
         }
-        val url = "$apiEndpoint?app_id=$apiId&app_key=$apiKey&what=$keyword&where=$location&distance=$radius"
+        val url = "$apiUrl?app_id=$apiId&app_key=$apiKey&what=$keyword&where=$location&distance=$radius"
 
         thread {
-            val connection = URL(url).openConnection() as HttpURLConnection
-            connection.requestMethod = "GET"
-            connection.connect()
+            try {
+                val connection = URL(url).openConnection() as HttpURLConnection
+                connection.requestMethod = "GET"
+                connection.connect()
 
-            val responseCode = connection.responseCode
-            if (responseCode == HttpURLConnection.HTTP_OK) {
-                val inputStream = connection.inputStream.bufferedReader().use {
-                    it.readText()
+                val responseCode = connection.responseCode
+                val inputStream = if (responseCode == HttpURLConnection.HTTP_OK) {
+                    connection.inputStream.bufferedReader().use { it.readText() }
+                } else {
+                    connection.errorStream.bufferedReader().use { it.readText() }
                 }
-                val jobResult = Gson().fromJson(inputStream, JobResult::class.java)
-                runOnUiThread {
-                    jobAdapter.updateJobs(jobResult.results)
+
+                if (responseCode == HttpURLConnection.HTTP_OK) {
+                    val jobResult = Gson().fromJson(inputStream, JobResult::class.java)
+                    runOnUiThread {
+                        jobAdapter.updateJobs(jobResult.results)
+                    }
+                } else {
+                    val errorResponse = inputStream
+                    runOnUiThread {
+                        showToast("Failed to fetch jobs: $errorResponse")
+                    }
                 }
-            } else {
+            } catch (e: Exception) {
+                e.printStackTrace()
                 runOnUiThread {
-                    Toast.makeText(this, "Failed to fetch jobs", Toast.LENGTH_SHORT).show()
+                    showToast("Exception occurred: ${e.message}")
                 }
             }
         }

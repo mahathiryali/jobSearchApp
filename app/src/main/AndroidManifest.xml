@@ -36,6 +36,7 @@
         <activity android:name=".JobSearch"></activity>
         <activity android:name=".Settings"></activity>
         <activity android:name=".CreateAccount"></activity>
+        <activity android:name=".UserProfile"></activity>
     </application>
 
 </manifest>
