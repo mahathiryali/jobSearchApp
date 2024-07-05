@@ -4,14 +4,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Button
 import androidx.recyclerview.widget.RecyclerView
 
 class JobAdapter(private var jobs: List<Job>) : RecyclerView.Adapter<JobAdapter.JobViewHolder>() {
 
+    var onSaveJobClickListener: ((Job) -> Unit)? = null
+
     class JobViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val title: TextView = itemView.findViewById(R.id.jobTitle)
-        val company: TextView = itemView.findViewById(R.id.jobCompany)
-        val location: TextView = itemView.findViewById(R.id.jobLocation)
+        val jobTitle: TextView = itemView.findViewById(R.id.jobTitle)
+        val jobCompany: TextView = itemView.findViewById(R.id.jobCompany)
+        val jobLocation: TextView = itemView.findViewById(R.id.jobLocation)
+        val saveJobBtn: Button = itemView.findViewById(R.id.saveJobBtn)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): JobViewHolder {
@@ -21,15 +25,20 @@ class JobAdapter(private var jobs: List<Job>) : RecyclerView.Adapter<JobAdapter.
 
     override fun onBindViewHolder(holder: JobViewHolder, position: Int) {
         val job = jobs[position]
-        holder.title.text = job.title
-        holder.company.text = job.company.display_name
-        holder.location.text = job.location.display_name
+        holder.jobTitle.text = job.title
+        holder.jobCompany.text = job.company.display_name
+        holder.jobLocation.text = job.location.display_name
+        holder.saveJobBtn.setOnClickListener {
+            onSaveJobClickListener?.invoke(job)
+        }
     }
 
-    override fun getItemCount() = jobs.size
+    override fun getItemCount(): Int {
+        return jobs.size
+    }
 
-    fun updateJobs(newJobs: List<Job>) {
-        jobs = newJobs
+    fun updateJobs(jobs: List<Job>) {
+        this.jobs = jobs
         notifyDataSetChanged()
     }
 }

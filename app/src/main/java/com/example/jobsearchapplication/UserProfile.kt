@@ -2,17 +2,24 @@ package com.example.jobsearchapplication
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
 class UserProfile : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var firestore: FirebaseFirestore
+    private lateinit var savedJobsRecyclerView: RecyclerView
+    private lateinit var jobAdapter: JobAdapter
+    private lateinit var jobList: MutableList<Job>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,8 +41,9 @@ class UserProfile : AppCompatActivity() {
 
         createTitle()
         setupProfileLabels(R.id.profileInfoLabel, R.id.profileInfoContent)
-        setupProfileLabels(R.id.savedJobsLabel, R.id.savedJobsContent)
+        setupProfileLabels(R.id.savedJobsLabel, R.id.savedJobsRecyclerView)
         createProfileContent()
+        setupRecyclerView()
     }
 
     private fun createTitle() {
@@ -62,7 +70,7 @@ class UserProfile : AppCompatActivity() {
         val itemContent = findViewById<TextView>(content)
         itemContent.visibility = View.GONE
         itemLabel.setOnClickListener {
-            itemContent.visibility = if(itemContent.visibility == View.GONE) View.VISIBLE else View.GONE
+            itemContent.visibility = if (itemContent.visibility == View.GONE) View.VISIBLE else View.GONE
         }
     }
 
@@ -92,5 +100,40 @@ class UserProfile : AppCompatActivity() {
                     profileInfoContent.text = "Failed to retrieve user data: ${e.message}"
                 }
         }
+    }
+
+    private fun setupRecyclerView() {
+        savedJobsRecyclerView = findViewById(R.id.savedJobsRecyclerView)
+        savedJobsRecyclerView.layoutManager = LinearLayoutManager(this)
+        jobList = mutableListOf()
+        jobAdapter = JobAdapter(jobList)
+        savedJobsRecyclerView.adapter = jobAdapter
+        fetchSavedJobs()
+    }
+
+    private fun fetchSavedJobs() {
+        val user = FirebaseAuth.getInstance().currentUser
+        if (user != null) {
+            val db = FirebaseFirestore.getInstance()
+            val userJobsRef = db.collection("users").document(user.uid).collection("savedJobs")
+            userJobsRef.get()
+                .addOnSuccessListener { documents ->
+                    for (document in documents) {
+                        val job = document.toObject(Job::class.java)
+                        jobList.add(job)
+                    }
+                    jobAdapter.notifyDataSetChanged()
+                }
+                .addOnFailureListener { exception ->
+                    Log.e("FirestoreError", "Error fetching saved jobs: ${exception.message}", exception)
+                    showToast("Failed to load saved jobs.")
+                }
+        } else {
+            showToast("User not logged in.")
+        }
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 }
