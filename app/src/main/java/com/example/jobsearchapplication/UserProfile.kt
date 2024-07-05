@@ -2,7 +2,9 @@ package com.example.jobsearchapplication
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
@@ -29,7 +31,11 @@ class UserProfile : AppCompatActivity() {
             val intent = Intent(this, Settings::class.java)
             startActivity(intent)
         }
+
         createTitle()
+        setupProfileLabels(R.id.profileInfoLabel, R.id.profileInfoContent)
+        setupProfileLabels(R.id.savedJobsLabel, R.id.savedJobsContent)
+        createProfileContent()
     }
 
     private fun createTitle() {
@@ -47,6 +53,43 @@ class UserProfile : AppCompatActivity() {
                 }
                 .addOnFailureListener { e ->
                     profileTitle.text = "Failed to retrieve user data: ${e.message}"
+                }
+        }
+    }
+
+    private fun setupProfileLabels(label: Int, content: Int) {
+        val itemLabel = findViewById<LinearLayout>(label)
+        val itemContent = findViewById<TextView>(content)
+        itemContent.visibility = View.GONE
+        itemLabel.setOnClickListener {
+            itemContent.visibility = if(itemContent.visibility == View.GONE) View.VISIBLE else View.GONE
+        }
+    }
+
+    private fun createProfileContent() {
+        val userId = auth.currentUser?.uid
+        val profileInfoContent = findViewById<TextView>(R.id.profileInfoContent)
+        userId?.let {
+            firestore.collection("users").document(it).get()
+                .addOnSuccessListener { document ->
+                    if (document.exists()) {
+                        val username = document.getString("username")
+                        val email = document.getString("email")
+                        val firstName = document.getString("firstName")
+                        val lastName = document.getString("lastName")
+                        profileInfoContent.text =
+                            buildString {
+                                append("Username: $username \n")
+                                append("Email: $email \n")
+                                append("First Name: $firstName \n")
+                                append("Last Name: $lastName \n")
+                            }
+                    } else {
+                        profileInfoContent.text = "User data not found"
+                    }
+                }
+                .addOnFailureListener { e ->
+                    profileInfoContent.text = "Failed to retrieve user data: ${e.message}"
                 }
         }
     }
