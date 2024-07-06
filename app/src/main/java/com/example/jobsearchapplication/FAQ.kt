@@ -36,13 +36,8 @@ class FAQ : AppCompatActivity() {
         val questionLayout = findViewById<LinearLayout>(questionId)
         val answerText = findViewById<TextView>(answerId)
         answerText.visibility = View.GONE
-
         questionLayout.setOnClickListener {
-            if (answerText.visibility == View.GONE) {
-                answerText.visibility = View.VISIBLE
-            } else {
-                answerText.visibility = View.GONE
-            }
+            answerText.visibility = if(answerText.visibility == View.GONE) View.VISIBLE else View.GONE
         }
     }
 }

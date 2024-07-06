@@ -1,49 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/resourcebackground"
     tools:context=".Home">
 
-    <Button
-        android:id="@+id/homePage"
-        android:layout_width="90dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="280dp"
-        android:layout_marginTop="16dp"
-        android:backgroundTint="#F4D81F"
-        android:text="Home"
-        android:textColor="@color/black"
-        android:textSize="14dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/backBtn"
-        android:layout_width="90dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="18dp"
-        android:layout_marginTop="16dp"
-        android:backgroundTint="#F4D81F"
-        android:text="Back"
-        android:textColor="@color/black"
-        android:textSize="14dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/profileTitle"
-        android:layout_width="409dp"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="66dp"
-        android:gravity="center"
-        android:text=""
-        android:textColor="#E0AC00"
-        android:textSize="30dp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:background="@drawable/faqbackground">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <Button
+            android:id="@+id/homePage"
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#F4D81F"
+            android:text="Home"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:layout_gravity="end"/>
+
+        <Button
+            android:id="@+id/backBtn"
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#F4D81F"
+            android:text="Back"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:layout_gravity="start"
+            android:layout_marginTop="-48dp"/>
+
+        <TextView
+            android:id="@+id/profileTitle"
+            android:layout_width="409dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:gravity="center"
+            android:text=""
+            android:textColor="#E0AC00"
+            android:textSize="30dp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/profileInfoLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="#0077B6"
+            android:padding="8dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="View Profile Information"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/profileInfoContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#00B4D8"
+            android:gravity="center"
+            android:text=""
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:padding="8dp" />
+
+        <LinearLayout
+            android:id="@+id/savedJobsLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="#0077B6"
+            android:padding="8dp"
+            android:layout_marginTop="8dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="View Saved Jobs"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/savedJobsRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:visibility="gone" />
+
+    </LinearLayout>
+</ScrollView>
