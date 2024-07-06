@@ -56,7 +56,7 @@ class JobSearch : AppCompatActivity() {
 
         jobRecyclerView = findViewById(R.id.jobRecyclerView)
         jobRecyclerView.layoutManager = LinearLayoutManager(this)
-        jobAdapter = JobAdapter(emptyList(), showSaveButton = true)
+        jobAdapter = JobAdapter(emptyList(), true, false)
         jobRecyclerView.adapter = jobAdapter
 
         val dividerItemDecoration = DividerItemDecoration(
@@ -108,7 +108,7 @@ class JobSearch : AppCompatActivity() {
         val apiId = BuildConfig.API_ID
         val apiKey = BuildConfig.API_KEY
         if (apiUrl.isNullOrEmpty() || apiId.isNullOrEmpty() || apiKey.isNullOrEmpty()) {
-            showToast("Please enter an API URL, ID, and KEY.")
+            showToast("Please set the API URL, ID, and KEY environment variables.")
             return
         }
         val url = "$apiUrl?app_id=$apiId&app_key=$apiKey&what=$keyword&where=$location&distance=$radius"

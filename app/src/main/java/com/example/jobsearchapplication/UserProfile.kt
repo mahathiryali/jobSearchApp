@@ -111,13 +111,18 @@ class UserProfile : AppCompatActivity() {
         savedJobsRecyclerView = findViewById(R.id.savedJobsRecyclerView)
         savedJobsRecyclerView.layoutManager = LinearLayoutManager(this)
         jobList = mutableListOf()
-        jobAdapter = JobAdapter(jobList, showSaveButton = false)
+        jobAdapter = JobAdapter(jobList, false, true)
         savedJobsRecyclerView.adapter = jobAdapter
+
         val dividerItemDecoration = DividerItemDecoration(
             savedJobsRecyclerView.context,
             (savedJobsRecyclerView.layoutManager as LinearLayoutManager).orientation
         )
         savedJobsRecyclerView.addItemDecoration(dividerItemDecoration)
+
+        jobAdapter.onDeleteJobClickListener = { job ->
+            deleteJob(job)
+        }
         fetchSavedJobs()
     }
 
@@ -137,6 +142,33 @@ class UserProfile : AppCompatActivity() {
                 .addOnFailureListener { exception ->
                     Log.e("FirestoreError", "Error fetching saved jobs: ${exception.message}", exception)
                     showToast("Failed to load saved jobs.")
+                }
+        } else {
+            showToast("User not logged in.")
+        }
+    }
+
+    private fun deleteJob(job: Job) {
+        val user = FirebaseAuth.getInstance().currentUser
+        if (user != null) {
+            val db = FirebaseFirestore.getInstance()
+            val userJobsRef = db.collection("users").document(user.uid).collection("savedJobs")
+            userJobsRef.whereEqualTo("title", job.title).get()
+                .addOnSuccessListener { documents ->
+                    for(document in documents) {
+                        document.reference.delete()
+                            .addOnSuccessListener {
+                                showToast("Job deleted successfully")
+                                jobList.remove(job)
+                                jobAdapter.notifyDataSetChanged()
+                            }
+                            .addOnFailureListener { e ->
+                                showToast("Failed to delete job: ${e.message}")
+                            }
+                    }
+                }
+                .addOnFailureListener { e->
+                    showToast("Failed to find job to delete: ${e.message}")
                 }
         } else {
             showToast("User not logged in.")
