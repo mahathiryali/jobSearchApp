@@ -9,6 +9,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
@@ -62,12 +63,14 @@ class UserProfile : AppCompatActivity() {
                 .addOnFailureListener { e ->
                     profileTitle.text = "Failed to retrieve user data: ${e.message}"
                 }
+        } ?: run {
+            profileTitle.text = "User not logged in"
         }
     }
 
     private fun setupProfileLabels(label: Int, content: Int) {
         val itemLabel = findViewById<LinearLayout>(label)
-        val itemContent = findViewById<TextView>(content)
+        val itemContent = findViewById<View>(content)
         itemContent.visibility = View.GONE
         itemLabel.setOnClickListener {
             itemContent.visibility = if (itemContent.visibility == View.GONE) View.VISIBLE else View.GONE
@@ -99,6 +102,8 @@ class UserProfile : AppCompatActivity() {
                 .addOnFailureListener { e ->
                     profileInfoContent.text = "Failed to retrieve user data: ${e.message}"
                 }
+        } ?: run {
+            profileInfoContent.text = "User not logged in"
         }
     }
 
@@ -106,8 +111,13 @@ class UserProfile : AppCompatActivity() {
         savedJobsRecyclerView = findViewById(R.id.savedJobsRecyclerView)
         savedJobsRecyclerView.layoutManager = LinearLayoutManager(this)
         jobList = mutableListOf()
-        jobAdapter = JobAdapter(jobList)
+        jobAdapter = JobAdapter(jobList, showSaveButton = false)
         savedJobsRecyclerView.adapter = jobAdapter
+        val dividerItemDecoration = DividerItemDecoration(
+            savedJobsRecyclerView.context,
+            (savedJobsRecyclerView.layoutManager as LinearLayoutManager).orientation
+        )
+        savedJobsRecyclerView.addItemDecoration(dividerItemDecoration)
         fetchSavedJobs()
     }
 

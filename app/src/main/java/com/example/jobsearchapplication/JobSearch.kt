@@ -56,7 +56,7 @@ class JobSearch : AppCompatActivity() {
 
         jobRecyclerView = findViewById(R.id.jobRecyclerView)
         jobRecyclerView.layoutManager = LinearLayoutManager(this)
-        jobAdapter = JobAdapter(emptyList())
+        jobAdapter = JobAdapter(emptyList(), showSaveButton = true)
         jobRecyclerView.adapter = jobAdapter
 
         val dividerItemDecoration = DividerItemDecoration(

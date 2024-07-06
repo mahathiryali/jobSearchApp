@@ -7,7 +7,7 @@ import android.widget.TextView
 import android.widget.Button
 import androidx.recyclerview.widget.RecyclerView
 
-class JobAdapter(private var jobs: List<Job>) : RecyclerView.Adapter<JobAdapter.JobViewHolder>() {
+class JobAdapter(private var jobs: List<Job>, private val showSaveButton: Boolean) : RecyclerView.Adapter<JobAdapter.JobViewHolder>() {
 
     var onSaveJobClickListener: ((Job) -> Unit)? = null
 
@@ -28,6 +28,7 @@ class JobAdapter(private var jobs: List<Job>) : RecyclerView.Adapter<JobAdapter.
         holder.jobTitle.text = job.title
         holder.jobCompany.text = job.company.display_name
         holder.jobLocation.text = job.location.display_name
+        holder.saveJobBtn.visibility = if (showSaveButton) View.VISIBLE else View.GONE
         holder.saveJobBtn.setOnClickListener {
             onSaveJobClickListener?.invoke(job)
         }
