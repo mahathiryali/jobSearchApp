@@ -59,7 +59,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="View Profile Information"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="20sp" />
         </LinearLayout>
 
@@ -89,7 +89,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="View Saved Jobs"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="20sp" />
         </LinearLayout>
 
@@ -99,6 +99,63 @@
             android:layout_height="wrap_content"
             android:padding="16dp"
             android:visibility="gone" />
+
+        <LinearLayout
+            android:id="@+id/signOutLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="#0077B6"
+            android:padding="8dp"
+            android:layout_marginTop="8dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Sign Out"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/signOutContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="#00B4D8"
+            android:padding="16dp">
+
+                <TextView
+                    android:id="@+id/signOutText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Are you sure you want to sign out?"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:padding="8dp" />
+
+                <Button
+                    android:id="@+id/doNotSignOutBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="No"
+                    android:backgroundTint="#0077B6"
+                    android:textColor="#FFFFFF"/>
+
+                <Button
+                    android:id="@+id/signOutBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="240dp"
+                    android:layout_marginTop="-49dp"
+                    android:text="Yes"
+                    android:backgroundTint="#0077B6"
+                    android:textColor="#FFFFFF"/>
+    </LinearLayout>
 
     </LinearLayout>
 </ScrollView>

@@ -2,6 +2,8 @@ package com.example.jobsearchapplication
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.View
 import android.widget.Button
@@ -43,8 +45,11 @@ class UserProfile : AppCompatActivity() {
         createTitle()
         setupProfileLabels(R.id.profileInfoLabel, R.id.profileInfoContent)
         setupProfileLabels(R.id.savedJobsLabel, R.id.savedJobsRecyclerView)
+        setupProfileLabels(R.id.signOutLabel, R.id.signOutContent)
         createProfileContent()
         setupRecyclerView()
+        signUserOut()
+        handleDoNotSignOut(R.id.signOutContent, R.id.doNotSignOutBtn)
     }
 
     private fun createTitle() {
@@ -167,11 +172,31 @@ class UserProfile : AppCompatActivity() {
                             }
                     }
                 }
-                .addOnFailureListener { e->
+                .addOnFailureListener { e ->
                     showToast("Failed to find job to delete: ${e.message}")
                 }
         } else {
             showToast("User not logged in.")
+        }
+    }
+
+    private fun signUserOut() {
+        val signOutBtn = findViewById<Button>(R.id.signOutBtn)
+        signOutBtn.setOnClickListener {
+            auth.signOut()
+            showToast("Signed out successfully!")
+            Handler(Looper.getMainLooper()).postDelayed({
+                val intent = Intent(this, Settings::class.java)
+                startActivity(intent)
+            }, 1500)
+        }
+    }
+
+    private fun handleDoNotSignOut(label: Int, content: Int) {
+        val itemLabel = findViewById<LinearLayout>(label)
+        val itemContent = findViewById<Button>(content)
+        itemContent.setOnClickListener {
+            itemLabel.visibility = if (itemLabel.visibility == View.GONE) View.VISIBLE else View.GONE
         }
     }
 
