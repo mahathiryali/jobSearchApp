@@ -47,36 +47,7 @@
             android:textStyle="bold" />
 
         <LinearLayout
-            android:id="@+id/profileInfoLabel"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:background="#0077B6"
-            android:padding="8dp">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="View Profile Information"
-                android:textColor="@color/white"
-                android:textSize="20sp" />
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/profileInfoContent"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#00B4D8"
-            android:gravity="center"
-            android:text=""
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            android:padding="4dp" />
-
-        <LinearLayout
-            android:id="@+id/editProfileInfoLabel"
+            android:id="@+id/viewOrEditProfileInfoLabel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -89,13 +60,13 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="Edit Profile Information"
+                android:text="View/Edit Profile Information"
                 android:textColor="@color/white"
                 android:textSize="20sp" />
         </LinearLayout>
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/editProfileInfoContent"
+            android:id="@+id/viewOrEditProfileInfoContent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -280,7 +251,7 @@
             android:orientation="horizontal"
             android:background="#0077B6"
             android:padding="8dp"
-            android:layout_marginTop="16dp">
+            android:layout_marginTop="8dp">
 
             <TextView
                 android:layout_width="0dp"

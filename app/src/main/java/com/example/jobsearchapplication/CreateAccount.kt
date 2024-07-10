@@ -92,7 +92,8 @@ class CreateAccount : AppCompatActivity() {
                         "username" to username,
                         "email" to email,
                         "firstName" to firstName,
-                        "lastName" to lastName
+                        "lastName" to lastName,
+                        "password" to password
                     )
 
                     userId?.let {

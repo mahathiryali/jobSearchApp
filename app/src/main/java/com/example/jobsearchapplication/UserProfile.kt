@@ -63,15 +63,14 @@ class UserProfile : AppCompatActivity() {
         val saveBtn = findViewById<Button>(R.id.saveButton)
         loadUserData()
         saveBtn.setOnClickListener {
+            verifyEmail()
             updateUserProfile()
         }
 
         createTitle()
-        setupProfileLabels(R.id.profileInfoLabel, R.id.profileInfoContent)
+        setupProfileLabels(R.id.viewOrEditProfileInfoLabel, R.id.viewOrEditProfileInfoContent)
         setupProfileLabels(R.id.savedJobsLabel, R.id.savedJobsRecyclerView)
         setupProfileLabels(R.id.signOutLabel, R.id.signOutContent)
-        setupProfileLabels(R.id.editProfileInfoLabel, R.id.editProfileInfoContent)
-        createProfileContent()
         setupRecyclerView()
         signUserOut()
         handleDoNotSignOut(R.id.signOutContent, R.id.doNotSignOutBtn)
@@ -104,36 +103,6 @@ class UserProfile : AppCompatActivity() {
         itemContent.visibility = View.GONE
         itemLabel.setOnClickListener {
             itemContent.visibility = if (itemContent.visibility == View.GONE) View.VISIBLE else View.GONE
-        }
-    }
-
-    private fun createProfileContent() {
-        val userId = auth.currentUser?.uid
-        val profileInfoContent = findViewById<TextView>(R.id.profileInfoContent)
-        userId?.let {
-            firestore.collection("users").document(it).get()
-                .addOnSuccessListener { document ->
-                    if (document.exists()) {
-                        val username = document.getString("username")
-                        val email = document.getString("email")
-                        val firstName = document.getString("firstName")
-                        val lastName = document.getString("lastName")
-                        profileInfoContent.text =
-                            buildString {
-                                append("Username: $username \n")
-                                append("Email: $email \n")
-                                append("First Name: $firstName \n")
-                                append("Last Name: $lastName \n")
-                            }
-                    } else {
-                        profileInfoContent.text = "User data not found"
-                    }
-                }
-                .addOnFailureListener { e ->
-                    profileInfoContent.text = "Failed to retrieve user data: ${e.message}"
-                }
-        } ?: run {
-            profileInfoContent.text = "User not logged in"
         }
     }
 
@@ -243,6 +212,7 @@ class UserProfile : AppCompatActivity() {
                         firstNameEditText.setText(initialFirstName)
                         lastNameEditText.setText(initialLastName)
                         passwordEditText.setText(initialPassword)
+                        Log.d("UserProfile", "Loaded initial email: $initialEmail, initial password: $initialPassword")
                     } else {
                         showToast("No user data found")
                     }
@@ -250,6 +220,40 @@ class UserProfile : AppCompatActivity() {
                 .addOnFailureListener { e ->
                     showToast("Failed to retrieve user data: ${e.message}")
                 }
+        }
+    }
+
+    private fun reauthenticateAndChangeEmail(currentPassword: String, newEmail: String) {
+        val user = auth.currentUser
+        val credential = EmailAuthProvider.getCredential(user?.email!!, currentPassword)
+
+        user.reauthenticate(credential)
+            .addOnCompleteListener { reauthTask ->
+                if (reauthTask.isSuccessful) {
+                    user.updateEmail(newEmail)
+                        .addOnCompleteListener { emailUpdateTask ->
+                            if (emailUpdateTask.isSuccessful) {
+                                showToast("Email updated successfully in Firebase Auth!")
+                            } else {
+                                showToast("Failed to update email in Firebase Auth: ${emailUpdateTask.exception?.message}")
+                                Log.e("UserProfile", "Error updating email: ${emailUpdateTask.exception}")
+                            }
+                        }
+                } else {
+                    showToast("Re-authentication failed: ${reauthTask.exception?.message}")
+                    Log.e("UserProfile", "Error re-authenticating: ${reauthTask.exception}")
+                }
+            }
+    }
+
+    private fun verifyEmail() {
+        val user = auth.currentUser
+        user?.sendEmailVerification()?.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                showToast("Verification email sent!")
+            } else {
+                showToast("Failed to send verification email: ${task.exception?.message}")
+            }
         }
     }
 
@@ -282,35 +286,21 @@ class UserProfile : AppCompatActivity() {
                 showToast("No changes to update in Firestore")
             }
 
-            val credential = EmailAuthProvider.getCredential(initialEmail, initialPassword)
-            user.reauthenticate(credential)
-                .addOnCompleteListener { reauthTask ->
-                    if (reauthTask.isSuccessful) {
-                        if (currentEmail != initialEmail) {
-                            user.updateEmail(currentEmail)
-                                .addOnCompleteListener { emailUpdateTask ->
-                                    if (emailUpdateTask.isSuccessful) {
-                                        showToast("Email updated successfully in Firebase Auth!")
-                                    } else {
-                                        showToast("Failed to update email in Firebase Auth: ${emailUpdateTask.exception?.message}")
-                                    }
-                                }
-                        }
+            if (currentEmail.isNotEmpty() && currentEmail != initialEmail) {
+                reauthenticateAndChangeEmail(initialPassword, currentEmail)
+            }
 
-                        if (currentPassword.isNotEmpty() && currentPassword != initialPassword) {
-                            user.updatePassword(currentPassword)
-                                .addOnCompleteListener { passwordUpdateTask ->
-                                    if (passwordUpdateTask.isSuccessful) {
-                                        showToast("Password updated successfully in Firebase Auth!")
-                                    } else {
-                                        showToast("Failed to update password in Firebase Auth: ${passwordUpdateTask.exception?.message}")
-                                    }
-                                }
+            if (currentPassword.isNotEmpty() && currentPassword != initialPassword) {
+                user?.updatePassword(currentPassword)
+                    ?.addOnCompleteListener { passwordUpdateTask ->
+                        if (passwordUpdateTask.isSuccessful) {
+                            showToast("Password updated successfully in Firebase Auth!")
+                        } else {
+                            showToast("Failed to update password in Firebase Auth: ${passwordUpdateTask.exception?.message}")
+                            Log.e("UserProfile", "Error updating password: ${passwordUpdateTask.exception}")
                         }
-                    } else {
-                        showToast("Re-authentication failed: ${reauthTask.exception?.message}")
                     }
-                }
+            }
         }
     }
 
