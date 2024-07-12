@@ -21,4 +21,5 @@ This Android application aids jobs seekers by providing resources such as FAQs, 
     - apiUrl
     - apiId
     - apiKey
+- Modify your local.properties file to point to the location Android SDK.
 - You should now be able to run the app.
