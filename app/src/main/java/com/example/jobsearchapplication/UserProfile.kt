@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.text.TextUtils
 import android.util.Log
 import android.view.View
 import android.widget.Button
@@ -67,13 +68,20 @@ class UserProfile : AppCompatActivity() {
             updateUserProfile()
         }
 
+        val deleteAccountBtn = findViewById<Button>(R.id.deleteAccountBtn)
+        deleteAccountBtn.setOnClickListener {
+            deleteUserAccount()
+        }
+
         createTitle()
         setupProfileLabels(R.id.viewOrEditProfileInfoLabel, R.id.viewOrEditProfileInfoContent)
         setupProfileLabels(R.id.savedJobsLabel, R.id.savedJobsRecyclerView)
         setupProfileLabels(R.id.signOutLabel, R.id.signOutContent)
+        setupProfileLabels(R.id.deleteAccountLabel, R.id.deleteAccountContent)
         setupRecyclerView()
         signUserOut()
-        handleDoNotSignOut(R.id.signOutContent, R.id.doNotSignOutBtn)
+        handleDoNotSignOutOrDelete(R.id.signOutContent, R.id.doNotSignOutBtn)
+        handleDoNotSignOutOrDelete(R.id.deleteAccountContent, R.id.doNotDeleteAccountBtn)
     }
 
     private fun createTitle() {
@@ -186,7 +194,7 @@ class UserProfile : AppCompatActivity() {
         }
     }
 
-    private fun handleDoNotSignOut(label: Int, content: Int) {
+    private fun handleDoNotSignOutOrDelete(label: Int, content: Int) {
         val itemLabel = findViewById<LinearLayout>(label)
         val itemContent = findViewById<Button>(content)
         itemContent.setOnClickListener {
@@ -267,11 +275,30 @@ class UserProfile : AppCompatActivity() {
         val currentPassword = passwordEditText.text.toString()
         val updatedFields = mutableMapOf<String, Any>()
 
-        if (currentUsername != initialUsername) updatedFields["username"] = currentUsername
-        if (currentEmail != initialEmail) updatedFields["email"] = currentEmail
-        if (currentFirstName != initialFirstName) updatedFields["firstName"] = currentFirstName
-        if (currentLastName != initialLastName) updatedFields["lastName"] = currentLastName
-        if (currentPassword != initialPassword) updatedFields["password"] = currentPassword
+        when {
+            TextUtils.isEmpty(currentUsername) || TextUtils.isEmpty(currentEmail) || TextUtils.isEmpty(currentFirstName) || TextUtils.isEmpty(currentLastName) || TextUtils.isEmpty(currentPassword) -> {
+                showToast("Inputting text in all fields is required")
+            }
+            currentUsername.contains(" ") || currentPassword.contains(" ") || currentEmail.contains(" ") -> {
+                showToast("Ensure there are no spaces in the username, email, and password fields.")
+            }
+            currentUsername.length < 8 -> {
+                showToast("Username must be at least 8 characters long")
+            }
+            !currentEmail.contains("@") || !currentEmail.contains(".") -> {
+                showToast("Invalid email address")
+            }
+            currentPassword.length < 8 -> {
+                showToast("Password must be at least 8 characters long")
+            }
+            else -> {
+                if (currentUsername != initialUsername) updatedFields["username"] = currentUsername
+                if (currentEmail != initialEmail) updatedFields["email"] = currentEmail
+                if (currentFirstName != initialFirstName) updatedFields["firstName"] = currentFirstName
+                if (currentLastName != initialLastName) updatedFields["lastName"] = currentLastName
+                if (currentPassword != initialPassword) updatedFields["password"] = currentPassword
+            }
+        }
 
         userId?.let {
             if (updatedFields.isNotEmpty()) {
@@ -301,6 +328,31 @@ class UserProfile : AppCompatActivity() {
                         }
                     }
             }
+        }
+    }
+
+    private fun deleteUserAccount() {
+        val user = auth.currentUser
+        val userId = user?.uid
+        if (userId != null) {
+            firestore.collection("users").document(userId).delete()
+                .addOnSuccessListener {
+                    user.delete()
+                        .addOnCompleteListener { task ->
+                            if (task.isSuccessful) {
+                                showToast("Account deleted successfully!")
+                                Handler(Looper.getMainLooper()).postDelayed({
+                                    val intent = Intent(this, Home::class.java)
+                                    startActivity(intent)
+                                }, 1500)
+                            } else {
+                                showToast("Failed to delete user authentication: ${task.exception?.message}")
+                            }
+                        }
+                }
+                .addOnFailureListener { e ->
+                    showToast("Failed to delete user data: ${e.message}")
+                }
         }
     }
 
