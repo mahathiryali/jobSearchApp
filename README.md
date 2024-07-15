@@ -23,3 +23,5 @@ This Android application aids jobs seekers by providing resources such as FAQs, 
     - apiKey
 - Modify your local.properties file to point to the location of your Android SDK.
 - You should now be able to run the app.
+- When fetching jobs, you should see a screen akin to this:
+  - <img width="203" alt="Screenshot 2024-07-15 at 11 49 47 AM" src="https://github.com/user-attachments/assets/8addaa62-185d-46a9-873c-687b63881edf">
